@@ -2,7 +2,7 @@ package Algorithm::RankAggregate::BordaCount;
 
 use strict;
 use warnings;
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.1_00';
 
 use base qw/Algorithm::RankAggregate/;
 
