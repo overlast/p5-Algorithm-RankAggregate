@@ -45,10 +45,10 @@ sub get_bordacount_result {
 }
 
 sub aggregate {
-    my ($this, $score_lists_lists, $top_k_num) = @_;
+    my ($this, $score_lists_list, $top_k_num) = @_;
     my @result = ();
-    return \@result unless ($this->validate_lists_list($score_lists_lists));
-    my $ranked_lists_list = $this->get_ranked_lists_list($score_lists_lists);
+    return \@result unless ($this->validate_lists_list($score_lists_list));
+    my $ranked_lists_list = $this->get_ranked_lists_list($score_lists_list);
     my $bordacount_lists_list = $this->get_bordacount_lists_list($ranked_lists_list, $top_k_num);
     if ((exists $this->{weight}) && (exists $this->{weight}->[0])) {
         $bordacount_lists_list = $this->get_weighted_count_lists_list($bordacount_lists_list);
@@ -89,11 +89,13 @@ You may read http://en.wikipedia.org/wiki/Borda_count.
 =head1 EXPORTED FUNCTIONS
 
 =head2 new()
+
 You can get the instance of this module in following way.
 
     my $bc = Algorithm::RankAggregate::BordaCount->new();
 
 =head2 new(\@array)
+
 If you want to think of multi voters, you can get the instance of this module in following way.
 
     my @voters = (42, 26, 15, 17);
@@ -105,6 +107,7 @@ If you want to use weighted borda count, you can get the instance of this module
     my $bc = Algorithm::RankAggregate::BordaCount->new(\@weights);
 
 =head2 aggregate(\@array_of_array)
+
 In first, you should make a array of array which make from real value.
 
     my @case = (
@@ -118,6 +121,7 @@ And you can get borda counts in following way.
     my @result = @{$bc->aggregate(\@case)};
 
 =head2 aggregate(\@array_of_array, $positive_int_value, $rank_higher_than)
+
 If you want to give the point to candidate which is ranked higher than N, you can get borda counts in following way.
 
     my @result = @{$bc->aggregate(\@case, N)};
@@ -125,6 +129,7 @@ If you want to give the point to candidate which is ranked higher than N, you ca
 By using this parameter, you can give "N - rank + 1" point to candidate.
 
 =head1 Example
+
 This is example to represent "how to use Algorithm::RankAggregate::BordaCount".
 
     use Algorithm::RankAggregate::BordaCount;
