@@ -1,5 +1,9 @@
 Revision history for Perl extension Algorithm::RankAggregate
 
+0.0.2_00    Thu May 13 19:17:00 2013
+        - first version of Pure Perl Borda rank module
+        - split aggregete() of Borda count module to two functions
+
 0.0.1_00    Thu May 10 12:07:00 2013
         - first version of Pure Perl Borda count module
 
