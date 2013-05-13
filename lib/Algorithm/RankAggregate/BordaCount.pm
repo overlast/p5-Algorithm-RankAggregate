@@ -2,7 +2,7 @@ package Algorithm::RankAggregate::BordaCount;
 
 use strict;
 use warnings;
-our $VERSION = '0.0.1_00';
+our $VERSION = '0.0.2_00';
 
 use base qw/Algorithm::RankAggregate/;
 
@@ -58,7 +58,6 @@ sub aggregate_rank_to_count {
 sub aggregate_score_to_count {
     my ($this, $score_lists_list, $top_k_num) = @_;
     my @result = ();
-    return \@result unless ($this->validate_lists_list($score_lists_list));
     my $ranked_lists_list = $this->get_ranked_lists_list($score_lists_list);
     @result = @{$this->aggregate_rank_to_count($ranked_lists_list, $top_k_num)} if (@{$ranked_lists_list});
     return \@result;
@@ -126,7 +125,7 @@ If you want to use weighted borda count, you can get the instance of this module
 
 In first, you should make a array of array which make from real value.
 
-    my @case = (
+    my @score_lists_list = (
          [-26.8,  -3.8, -11.2, -9.4, -2.7],
          [-24.8,  18.2, -8.0,  -3.4, 18.0],
          [-17.7,  13.0, -2.4,  -5.7, 12.9],
@@ -134,15 +133,36 @@ In first, you should make a array of array which make from real value.
 
 And you can get borda counts in following way.
 
-    my @result = @{$bc->aggregate(\@case)};
+    my @result = @{$bc->aggregate(\@score_lists_list)};
+
+$bc->aggregate() is simple wrapper of $bc->aggregate_score_to_count();
+
+If you want to use a array of array which make from rank number,
+you should call $br->aggregate_rank_to_count();
+
+    my @rank_lists_list = (
+         [5, 2, 4, 3, 1],
+         [5, 1, 4, 3, 2],
+         [5, 1, 3, 4, 2],
+    );
 
 =head2 aggregate(\@array_of_array, $positive_int_value, $rank_higher_than)
 
-If you want to give the point to candidate which is ranked higher than N, you can get borda counts in following way.
+If you want to give the point to candidate which is ranked higher than N(N is a positive natural value), you can get borda counts in following way.
 
-    my @result = @{$bc->aggregate(\@case, N)};
+    my @result = @{$bc->aggregate(\@score_lists_list, N)};
 
 By using this parameter, you can give "N - rank + 1" point to candidate.
+
+$bc->aggregate() is simple wrapper of $bc->aggregate_score_to_count();
+
+=head2 aggregate_score_to_count(\@array_of_array, $positive_int_value, $rank_higher_than)
+
+This is main function of $bc->aggregate().
+
+=head2 aggregate_rank_to_count(\@array_of_array, $positive_int_value, $rank_higher_than)
+
+It is called in $bc->aggregate_score_to_count() to get the result borda count array.
 
 =head1 Example
 
@@ -152,7 +172,7 @@ This is example to represent "how to use Algorithm::RankAggregate::BordaCount".
 
     # http://en.wikipedia.org/wiki/Borda_count
     # each array of array are (Memphis, Nashville, Chattanooga, Knoxville)
-    my @case = (
+    my @score_lists_list = (
         [4, 3, 2, 1],
         [1, 4, 3, 2],
         [1, 2, 4, 3],
@@ -160,7 +180,7 @@ This is example to represent "how to use Algorithm::RankAggregate::BordaCount".
     );
     my @voters = (42,26,15,17);
     my $bc = Algorithm::RankAggregate::BordaCount->new(\@voters);
-    my @result = @{$bc->aggregate(\@case_00, 3);
+    my @result = @{$bc->aggregate(\@score_lists_list, 3);
 
     # in this case, @result = (126, 194, 173, 107)
 
