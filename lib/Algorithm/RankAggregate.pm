@@ -2,7 +2,7 @@ package Algorithm::RankAggregate;
 
 use strict;
 use warnings;
-our $VERSION = '0.0.1_00';
+our $VERSION = '0.0.2_00';
 
 sub get_ranked_list {
     my ($this, $score_list) = @_;
