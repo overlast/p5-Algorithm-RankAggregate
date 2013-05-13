@@ -44,16 +44,32 @@ sub get_bordacount_result {
     return \@lists_list;
 }
 
-sub aggregate {
-    my ($this, $score_lists_list, $top_k_num) = @_;
+sub aggregate_rank_to_count {
+    my ($this, $ranked_lists_list, $top_k_num) = @_;
     my @result = ();
-    return \@result unless ($this->validate_lists_list($score_lists_list));
-    my $ranked_lists_list = $this->get_ranked_lists_list($score_lists_list);
     my $bordacount_lists_list = $this->get_bordacount_lists_list($ranked_lists_list, $top_k_num);
     if ((exists $this->{weight}) && (exists $this->{weight}->[0])) {
         $bordacount_lists_list = $this->get_weighted_count_lists_list($bordacount_lists_list);
     }
     @result = @{$this->get_bordacount_result($bordacount_lists_list)} if (@{$bordacount_lists_list});
+    return \@result;
+}
+
+sub aggregate_score_to_count {
+    my ($this, $score_lists_list, $top_k_num) = @_;
+    my @result = ();
+    return \@result unless ($this->validate_lists_list($score_lists_list));
+    my $ranked_lists_list = $this->get_ranked_lists_list($score_lists_list);
+    @result = @{$this->aggregate_rank_to_count($ranked_lists_list, $top_k_num)} if (@{$ranked_lists_list});
+    return \@result;
+
+}
+
+sub aggregate {
+    my ($this, $score_lists_list, $top_k_num) = @_;
+    my @result = ();
+    return \@result unless ($this->validate_lists_list($score_lists_list));
+    @result = @{$this->aggregate_score_to_count($score_lists_list, $top_k_num)} if (@{$score_lists_list});
     return \@result;
 }
 
