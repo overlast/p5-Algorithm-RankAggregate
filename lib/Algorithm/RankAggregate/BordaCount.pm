@@ -2,7 +2,7 @@ package Algorithm::RankAggregate::BordaCount;
 
 use strict;
 use warnings;
-our $VERSION = '0.0.2_00';
+our $VERSION = '0.0.3_00';
 
 use base qw/Algorithm::RankAggregate/;
 
@@ -146,9 +146,9 @@ you should call $br->aggregate_rank_to_count();
          [5, 1, 3, 4, 2],
     );
 
-=head2 aggregate(\@array_of_array, $positive_int_value, $rank_higher_than)
+=head2 aggregate(\@array_of_array, $positive_int_value)
 
-If you want to give the point to candidate which is ranked higher than N(N is a positive natural value), you can get borda counts in following way.
+When you want to get the point of candidates which is ranked higher than N(N is a positive natural value), you can get borda counts in following way.
 
     my @result = @{$bc->aggregate(\@score_lists_list, N)};
 
@@ -156,11 +156,11 @@ By using this parameter, you can give "N - rank + 1" point to candidate.
 
 $bc->aggregate() is simple wrapper of $bc->aggregate_score_to_count();
 
-=head2 aggregate_score_to_count(\@array_of_array, $positive_int_value, $rank_higher_than)
+=head2 aggregate_score_to_count(\@array_of_array, $positive_int_value)
 
 This is main function of $bc->aggregate().
 
-=head2 aggregate_rank_to_count(\@array_of_array, $positive_int_value, $rank_higher_than)
+=head2 aggregate_rank_to_count(\@array_of_array, $positive_int_value)
 
 It is called in $bc->aggregate_score_to_count() to get the result borda count array.
 
