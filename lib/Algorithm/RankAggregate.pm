@@ -2,7 +2,7 @@ package Algorithm::RankAggregate;
 
 use strict;
 use warnings;
-our $VERSION = '0.0.2_00';
+our $VERSION = '0.0.3_00';
 
 sub get_ranked_list {
     my ($this, $score_list) = @_;
@@ -27,6 +27,15 @@ sub get_ranked_list {
         }
         $ranked_list[$k - 1] = $j;
     }
+    return \@ranked_list;
+}
+
+sub get_reverse_ranked_list {
+    my ($this, $score_list) = @_;
+    for (my $i = 0; $i <= $#{$score_list}; $i++) {
+        $score_list->[$i] = $score_list->[$i] * -1;
+    }
+    my @ranked_list = @{$this->get_ranked_list($score_list)};
     return \@ranked_list;
 }
 
