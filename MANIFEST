@@ -12,6 +12,8 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Test/More.pm
 lib/Algorithm/RankAggregate.pm
+lib/Algorithm/RankAggregate/AverageRank.pm
+lib/Algorithm/RankAggregate/AverageRating.pm
 lib/Algorithm/RankAggregate/BordaCount.pm
 lib/Algorithm/RankAggregate/BordaRank.pm
 Makefile.PL
@@ -20,6 +22,7 @@ README
 t/00_compile.t
 t/01_get_ranked_list.t
 t/01_get_ranked_lists_list.t
+t/01_get_reverse_ranked_list.t
 t/01_get_weighted_count_list.t
 t/01_get_weighted_count_lists_list.t
 t/01_validate_lists_lists.t
@@ -32,6 +35,13 @@ t/02_get_bordacount_lists_list.t
 t/03_aggregate_rank_to_rank.t
 t/03_aggregate_score_to_rank.t
 t/03_example_of_bordacount_of_wikipedia.t
+t/04_aggregate.t
+t/04_aggregate_rank_to_rating.t
+t/04_aggregate_score_to_rating.t
+t/04_get_averagerating_result.t
+t/05_aggregate.t
+t/05_aggregate_rank_to_rank.t
+t/05_aggregate_score_to_rank.t
 xt/01_podspell.t
 xt/02_perlcritic.t
 xt/03_pod.t
