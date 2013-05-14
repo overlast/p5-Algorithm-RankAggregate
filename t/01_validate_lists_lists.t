@@ -1,7 +1,7 @@
 use strict;
 use Test::More tests => 4;
 
-use Algorithm::RankAggregate::BordaCount;
+use Algorithm::RankAggregate;
 
 my @case_00 = (
     [279.8, 188.8, 84.8, 41.8,  20.1],
@@ -27,7 +27,7 @@ my @case_03 = (
     [-17.7,  13.0, -5.7, -2.4,  12.9, 12.9],
 );
 
-my $bc = Algorithm::RankAggregate::BordaCount->new();
+my $bc = Algorithm::RankAggregate->new();
 is($bc->validate_lists_list(\@case_00), 1);
 is($bc->validate_lists_list(\@case_01), 0);
 is($bc->validate_lists_list(\@case_02), 0);
